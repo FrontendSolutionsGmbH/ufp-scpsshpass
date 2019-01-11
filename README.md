@@ -17,7 +17,7 @@ With this image you can use scp and sshpass to copy stuff to a remote server or 
 
 # Usage
 
-## Copy a local directory to a remote server by setting some env variables
+## Copy local directory to remote server via env variables
 
 ```
 # Change the env variables only and it should work
@@ -60,9 +60,28 @@ Explanation:
 export SSHPASS='mysupersecretpassword'
 export SSHUSER='myuser'
 export SSHHOST='server.example.com'
-export LOCALDIR="$(pwd)"
-export REMOTEDIR='/home/myuser/'
+export LOCALDIR="$(pwd)"          
+export REMOTEDIR='/home/myuser/nicedir'
 
 docker run --rm -e "SSHPASS=${SSHPASS}" -v "${LOCALDIR}":/upload 'frontendsolutions/ufp-scpsshpass:1' sshpass -e scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /upload/ "${SSHUSER}@${SSHHOST}:${REMOTEDIR}"
+```
+
+## Copy from remote to local
+
+If you want to copy data from remote to local you can use it like this 
 
 ```
+export SSHPASS='mysupersecretpassword'
+export SSHUSER='myuser'
+export SSHHOST='server.example.com'
+export LOCALDIR="$(pwd)"          
+export REMOTEDIR='/home/myuser/nicedir/*'  # do not forget the * otherwise you get a new dir
+
+docker run --rm -e "SSHPASS=${SSHPASS}" -v "${LOCALDIR}":/download 'frontendsolutions/ufp-scpsshpass:1' sshpass -e scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  "${SSHUSER}@${SSHHOST}:${REMOTEDIR}" /download
+```
+
+# Contact us
+
+If you need more information feel free to contact us 
+
+[https://froso.de](https://froso.de)
