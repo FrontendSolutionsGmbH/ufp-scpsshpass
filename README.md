@@ -10,11 +10,6 @@ With this image you can use scp and sshpass to copy stuff to a remote server or 
 * Docker needs to be installed
 * You need to know the connection settings for your remote host (username, password and so on)
 
-# Docker Hub
-
-* The docker image can be found here 
-[frontendsolutions/ufp-scpsshpass](https://hub.docker.com/r/frontendsolutions/ufp-scpsshpass)
-
 # Usage
 
 ## Copy local directory to remote server via env variables
@@ -79,9 +74,3 @@ export REMOTEDIR='/home/myuser/nicedir/*'  # do not forget the * otherwise you g
 
 docker run --rm -e "SSHPASS=${SSHPASS}" -v "${LOCALDIR}":/download 'frontendsolutions/ufp-scpsshpass:1' sshpass -e scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  "${SSHUSER}@${SSHHOST}:${REMOTEDIR}" /download
 ```
-
-# Contact us
-
-If you need more information feel free to contact us 
-
-[https://froso.de](https://froso.de)
